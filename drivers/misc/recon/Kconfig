@@ -1,0 +1,101 @@
+#
+# Recon Instruments devices
+#
+config JET_PROXMUX
+	tristate "Recon Instruments Jet Mux Device"
+	help
+	  Say Y here if you want to support the RECON Kernel MUX Device.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called proxmux
+
+config JET_SENSORS
+	tristate "Recon Instruments Jet Sensors"
+	help
+	  Say Y here if you want to support the built-in RECON Sensor.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called sensors
+
+config JET_SENSORS_ADVANCED_SENSORS
+	bool "Recon Instruments Advanced Jet Sensors"
+	default n
+	depends on JET_SENSORS
+	help
+	  Say Y here if you want to support Recon Instruments 
+	  Low Level Driver for advanced sensors
+
+config JET_SENSORS_MAG_TEMPERATURE
+	bool "Recon Instruments Mag Temperature"
+	default n
+	depends on JET_SENSORS
+	help
+	  Say Y here if you want to support a Read method
+	  From the temperature sensor in the magnetometer 
+
+config JET_TMP103_FLEX
+	bool "Recon Instruments temperature sensor on the flex"
+
+config JET_SENSORS_DEBUG
+	bool "sensors debug Support"
+	help
+	  Say Y here if you want to support more debug message.
+
+config RISENS_DEBUG
+bool "RIsensors proxmux debug Support"
+	help
+	  Say Y here if you want to support more RIsensors debug message.
+#
+# Advance Recon Sensors Support
+#
+
+choice
+	bool "Advanced Sensors Support"
+	depends on JET_SENSORS_ADVANCED_SENSORS
+	default JET_SENSORS_TAP_TAP
+	help
+	  Recon Instruments Low Level Driver for advanced sensors
+
+config JET_SENSORS_TAP_TAP
+	bool "Tap Tap Support"
+	help
+	  Say Y here if you want to support the tap tap input driver.
+
+config JET_SENSORS_FREE_FALL
+	bool "Free Fall Support"
+	help
+	  Say Y here if you want to support the Free Fall driver.
+endchoice
+
+config MFI
+	tristate "MFI chip"
+	depends on JET_SENSORS
+	help
+	  Say Y here if you want to support the built-in mfi.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called mfi
+
+config APDS9900
+	tristate "APDS9900 chip"
+	depends on JET_SENSORS
+	help
+	  Say Y here if you want to support the built-in apds for gaze detection.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called apds9900
+
+config TFA98xx
+	tristate "TFA98xx amplifier chip"
+	depends on JET_SENSORS
+	help
+	  Say Y here if you want to support the built-in NXP D class amplifier for speaker
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called tfa98xx
+	  
+config JET_CAMERA_MT9M114
+	bool "Jet Sun Camera"
+	depends on JET_SUN
+	help
+	  Say Y here if you want to support the built-in camera enable/disable mode.
